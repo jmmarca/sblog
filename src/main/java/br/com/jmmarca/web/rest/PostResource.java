@@ -67,13 +67,23 @@ public class PostResource {
         this.userService = userService;
     }
 
+    /**
+     * List posts Publicated
+     */
     @GetMapping("/posts/find-publicated")
     public ResponseEntity<List<Post>> findPublicated(Pageable pageable, UriComponentsBuilder uriBuilder) {
-        Page<Post> page = postRepository.findAllByStatus(StatusPost.PUBLICADO, pageable);
+        Page<Post> page = postRepository.findAllByStatus(StatusPost.PUBLISHED, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(null), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    /**
+     * List all posts (PENDING/PUBLISHED)
+     * 
+     * @param pageable
+     * @param uriBuilder
+     * @return
+     */
     @GetMapping("/posts")
     public ResponseEntity<List<Post>> findAll(Pageable pageable, UriComponentsBuilder uriBuilder) {
         Page<Post> page = postRepository.findAll(pageable);
@@ -81,6 +91,13 @@ public class PostResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    /**
+     * Create Post
+     * 
+     * @param post
+     * @return
+     * @throws URISyntaxException
+     */
     @PostMapping("/post")
     public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) throws URISyntaxException {
         log.debug("REST request to save post : {}", post);
@@ -101,6 +118,13 @@ public class PostResource {
                 .body(result);
     }
 
+    /**
+     * Update Post
+     * 
+     * @param post
+     * @return
+     * @throws URISyntaxException
+     */
     @PutMapping("/post")
     public ResponseEntity<Post> updatePost(@Valid @RequestBody Post post) throws URISyntaxException {
         log.debug("REST request to update  " + ENTITY_NAME + "  : {}", post);
@@ -114,6 +138,12 @@ public class PostResource {
                 .body(result);
     }
 
+    /**
+     * Get Post
+     * 
+     * @param id
+     * @return
+     */
     @GetMapping("/post/{id}")
     public ResponseEntity<Post> getPost(@PathVariable Long id) {
         log.debug("REST request to get " + ENTITY_NAME + " : {}", id);
@@ -127,6 +157,12 @@ public class PostResource {
                 .body(post.get());
     }
 
+    /**
+     * Remove Post
+     * 
+     * @param id
+     * @return
+     */
     @DeleteMapping("/post/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         log.debug("REST request to delete " + ENTITY_NAME + " : {}", id);
@@ -154,7 +190,7 @@ public class PostResource {
     }
 
     /**
-     * Publicar postagem
+     * Publish post
      * 
      * @param id
      * @return
@@ -179,7 +215,7 @@ public class PostResource {
         } else {
             post = retPost.get();
             if (!userAuth.get().getId().equals(post.getUser().getId())) {
-                post.setStatus(StatusPost.PUBLICADO);
+                post.setStatus(StatusPost.PUBLISHED);
                 post = postRepository.save(post);
             } else {
                 throw new BadRequestAlertException("Apenas o criador do post pode modificar!", ENTITY_NAME, "param");

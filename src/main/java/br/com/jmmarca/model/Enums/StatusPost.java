@@ -1,7 +1,7 @@
 package br.com.jmmarca.model.Enums;
 
 public enum StatusPost {
-    PENDENTE("PENDENTE"), PUBLICADO("PUBLICADO");
+    PENDING("PENDING"), PUBLISHED("PUBLISHED");
 
     private String name;
 

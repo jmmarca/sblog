@@ -38,7 +38,7 @@ public class Post extends AbstractModel {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private StatusPost status = StatusPost.PENDENTE;
+    private StatusPost status = StatusPost.PENDING;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("comments")

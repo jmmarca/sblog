@@ -71,6 +71,13 @@ public class GalleryResource {
         this.userService = userService;
     }
 
+    /**
+     * List all gallerys
+     * 
+     * @param pageable
+     * @param uriBuilder
+     * @return
+     */
     @GetMapping("/gallerys")
     public ResponseEntity<List<Gallery>> findAll(Pageable pageable, UriComponentsBuilder uriBuilder) {
         Page<Gallery> page = galleryRepository.findAll(pageable);
@@ -78,6 +85,13 @@ public class GalleryResource {
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
 
+    /**
+     * Create Gallery
+     * 
+     * @param gallery
+     * @return
+     * @throws URISyntaxException
+     */
     @PostMapping("/gallery")
     public ResponseEntity<Gallery> createGallery(@Valid @RequestBody Gallery gallery) throws URISyntaxException {
         log.debug("REST request to save gallery : {}", gallery);
@@ -95,6 +109,13 @@ public class GalleryResource {
                 .body(result);
     }
 
+    /**
+     * Upadate Gallery
+     * 
+     * @param gallery
+     * @return
+     * @throws URISyntaxException
+     */
     @PutMapping("/gallery")
     public ResponseEntity<Gallery> updateGallery(@Valid @RequestBody Gallery gallery) throws URISyntaxException {
         log.debug("REST request to update  " + ENTITY_NAME + "  : {}", gallery);
@@ -124,6 +145,12 @@ public class GalleryResource {
                 .body(gallery);
     }
 
+    /**
+     * Get one gallery by id
+     * 
+     * @param id
+     * @return
+     */
     @GetMapping("/gallery/{id}")
     public ResponseEntity<Gallery> getGallery(@PathVariable Long id) {
         log.debug("REST request to get " + ENTITY_NAME + " : {}", id);
@@ -137,6 +164,12 @@ public class GalleryResource {
                 .body(gallery.get());
     }
 
+    /**
+     * Remove Gallery
+     * 
+     * @param id
+     * @return
+     */
     @DeleteMapping("/gallery/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         log.debug("REST request to delete " + ENTITY_NAME + " : {}", id);
@@ -164,6 +197,7 @@ public class GalleryResource {
     }
 
     /**
+     * List photos of gallery
      * 
      * @param id
      * @return

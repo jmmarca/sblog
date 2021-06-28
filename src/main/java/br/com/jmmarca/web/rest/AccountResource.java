@@ -49,6 +49,12 @@ public class AccountResource {
     @Autowired
     JwtProvider jwtProvider;
 
+    /**
+     * Login of user
+     * 
+     * @param loginRequest
+     * @return
+     */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
 
@@ -65,6 +71,14 @@ public class AccountResource {
         return ResponseEntity.ok(new JwtResponse(jwt));
     }
 
+    /**
+     * Register user 
+     * 
+     * RULES (ADMIN/USER)
+     * 
+     * @param signUpRequest
+     * @return
+     */
     @PostMapping("/signup")
     public ResponseEntity<String> registerUser(@Valid @RequestBody SignUpForm signUpRequest) {
         if(userRepository.existsByUsernameIgnoreCase(signUpRequest.getUsername())) {

@@ -34,6 +34,8 @@ import br.com.jmmarca.repository.PostRepository;
 import br.com.jmmarca.services.UserService;
 
 /**
+ * Crud of PostComments
+ * 
  * @author jean.marca
  */
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -64,6 +66,14 @@ public class PostCommentResource {
         this.userService = userService;
     }
 
+    /**
+     * 
+     * Create Comment in Post
+     * 
+     * @param postComment
+     * @return
+     * @throws URISyntaxException
+     */
     @PostMapping("/post-comments")
     public ResponseEntity<PostComment> createPostComment(@Valid @RequestBody PostComment postComment) throws URISyntaxException {
         log.debug("REST request to save post Comment : {}", postComment);
@@ -91,6 +101,13 @@ public class PostCommentResource {
                 .body(postComment);
     }
 
+    /**
+     * Update Comment in Post
+     * 
+     * @param postComment
+     * @return
+     * @throws URISyntaxException
+     */
     @PutMapping("/post-comments")
     public ResponseEntity<PostComment> updatePostComment(@Valid @RequestBody PostComment postComment) throws URISyntaxException {
         log.debug("REST request to update  " + ENTITY_NAME + "  : {}", postComment);
@@ -121,6 +138,12 @@ public class PostCommentResource {
                 .body(postComment);
     }
 
+    /**
+     * Get Comment in Post By Id
+     * 
+     * @param id
+     * @return
+     */
     @GetMapping("/post-comments/{id}")
     public ResponseEntity<PostComment> getPostComment(@PathVariable Long id) {
         log.debug("REST request to get " + ENTITY_NAME + " : {}", id);
@@ -130,6 +153,12 @@ public class PostCommentResource {
                 .body(postComment.get());
     }
 
+    /**
+     * Remove comment in Post
+     * 
+     * @param id
+     * @return
+     */
     @DeleteMapping("/post-comments/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         log.debug("REST request to delete comment" + ENTITY_NAME + " : {}", id);

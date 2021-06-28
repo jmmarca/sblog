@@ -1,8 +1,6 @@
 package br.com.jmmarca.web.rest;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.jmmarca.core.errors.BadRequestAlertException;
@@ -55,9 +52,6 @@ public class PhotoResource {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private MultipartResolver multipartResolver;
-
     private final Logger log = LoggerFactory.getLogger(PhotoResource.class);
 
     private static final String ENTITY_NAME = "photo";
@@ -68,33 +62,20 @@ public class PhotoResource {
     @Value("${sblog.app.name}")
     private String applicationName;
 
-    @Value("${file.upload-dir}")
-    private String pathUpload;
-
-    public PhotoRepository getPhotoRepository() {
-        return photoRepository;
-    }
-
-    public void setPhotoRepository(PhotoRepository photoRepository) {
+    public PhotoResource(PhotoRepository photoRepository, GalleryRepository galleryRepository, UserService userService,
+            FileStorageService fileStorageService) {
         this.photoRepository = photoRepository;
-    }
-
-    public UserService getUserService() {
-        return userService;
-    }
-
-    public void setUserService(UserService userService) {
+        this.galleryRepository = galleryRepository;
         this.userService = userService;
-    }
-
-    public FileStorageService getFileStorageService() {
-        return fileStorageService;
-    }
-
-    public void setFileStorageService(FileStorageService fileStorageService) {
         this.fileStorageService = fileStorageService;
     }
 
+    /**
+     * Remove Photo of Database and Storage
+     * 
+     * @param id
+     * @return
+     */
     @DeleteMapping("/photo/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         log.debug("REST request to delete " + ENTITY_NAME + " : {}", id);
@@ -116,7 +97,8 @@ public class PhotoResource {
                     resource.getFile().delete();
                 } catch (Exception e) {
                     log.error("Erro ao remover foto!", e);
-                    //throw new BadRequestAlertException("Erro ao remover foto!", ENTITY_NAME, "param");
+                    // throw new BadRequestAlertException("Erro ao remover foto!", ENTITY_NAME,
+                    // "param");
                 }
                 photoRepository.deleteById(id);
             } else {
@@ -131,8 +113,16 @@ public class PhotoResource {
                 .body("{\"message\":\"ok\"}");
     }
 
+    /**
+     * Upload photos of gallery
+     * 
+     * @param id
+     * @param file
+     * @return
+     * @throws IOException
+     */
     @PostMapping(value = "/photo/gallery-upload/{id}")
-    public UploadFileResponse uploadFoto(@PathVariable Long id, @RequestParam("file") MultipartFile file)
+    public UploadFileResponse uploadPhoto(@PathVariable Long id, @RequestParam("file") MultipartFile file)
             throws IOException {
 
         Optional<Gallery> gallery = galleryRepository.findById(id);
@@ -159,14 +149,14 @@ public class PhotoResource {
     }
 
     /**
-     * Retorna a foto de acordo o ID
+     * Photo download by id
      * 
      * @param id
      * @param request
      * @return
      */
     @GetMapping("/photo/download/{id}")
-    public ResponseEntity<Resource> downloadPhoto(@PathVariable Long id, HttpServletRequest request) {
+    public ResponseEntity<Resource> download(@PathVariable Long id, HttpServletRequest request) {
 
         Optional<Photo> photo = photoRepository.findById(id);
 
