@@ -1,31 +1,31 @@
-Dever√£o ser constru√≠das interfaces Web e APIs de forma a suportar as seguintes
-opera√ß√µes:
-*Seguran√ßa
-    - Permitir o cadastro de usu√°rios e login com autentica√ß√£o via token JWT.
+Dever„o ser construÌdas interfaces Web e APIs de forma a suportar as seguintes
+operaÁıes:
+*SeguranÁa
+    - Permitir o cadastro de usu·rios e login com autenticaÁ„o via token JWT.
 *Post
     -Permitir o cadastro e consulta de posts com texto, imagens e links.
     -Upload de Imagens
-    -Apenas o criador do post poder√° ter permiss√£o para exclu√≠-lo.
-*Coment√°rios
-    - Suportar a adi√ß√£o e exclus√£o de coment√°rios em posts. 
-    - Os posts poder√£o ser vis√≠veis a todos os usu√°rios. 
-    - Apenas o criador do coment√°rio poder√° ter permiss√£o para exclu√≠-lo.
+    -Apenas o criador do post poder· ter permiss„o para excluÌ-lo.
+*Coment·rios
+    - Suportar a adiÁ„o e exclus„o de coment·rios em posts. 
+    - Os posts poder„o ser visÌveis a todos os usu·rios. 
+    - Apenas o criador do coment·rio poder· ter permiss„o para excluÌ-lo.
 *Fotos
-    - Permitir a cria√ß√£o de √°lbuns de fotos. 
-    - As fotos dos √°lbuns poder√£o ser vis√≠veis a todos os usu√°rios. 
-    - Apenas o dono de um √°lbum poder√° exclu√≠-lo.
+    - Permitir a criaÁ„o de ·lbuns de fotos. 
+    - As fotos dos ·lbuns poder„o ser visÌveis a todos os usu·rios. 
+    - Apenas o dono de um ·lbum poder· excluÌ-lo.
 
 #instalar postgres
-#configura√ß√µes do BD na aplica√ß√£o (application.properties)
+#configuraÁıes do BD na aplicaÁ„o (application.properties)
 spring.datasource.url=jdbc:postgresql://localhost:5432/sblog
 spring.datasource.username=postgres
 spring.datasource.password=postgres
 
-#Inializar a aplica√ß√£o
+#Inializar a aplicaÁ„o
 mvn spring-boot:run
 
 
-#O banco ser√° criado na primeira execu√ß√£o
-#Os dados b√°sicos ser√£o inseridos na primeira execu√ß√£o
+#O banco ser· criado na primeira execuÁ„o
+#Os dados b·sicos ser„o inseridos na primeira execuÁ„o
 #Acessar Interface para testes dos endpoints
 http://localhost:8080/swagger-ui.html
