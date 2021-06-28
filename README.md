@@ -1,11 +1,11 @@
 Deverão ser construídas interfaces Web e APIs de forma a suportar as seguintes
 operações:
-*Segurança
+-Segurança
     - Permitir o cadastro de usuários e login com autenticação via token JWT.
 *Post
     -Permitir o cadastro e consulta de posts com texto, imagens e links.
     -Upload de Imagens
-    -Apenas o criador do post poderá ter permissão para excluí-lo.
+	-Apenas o criador do post poderá ter permissão para excluí-lo.
 *Comentários
 	- Suportar a adição e exclusão de comentários em posts. 
 	- Os posts poderão ser visíveis a todos os usuários. 
