@@ -30,4 +30,4 @@ operações:
 - O banco será criado na primeira execução
 - Os dados básicos serão inseridos na primeira execução
 - Acessar Interface para testes dos endpoints: http://localhost:8080/swagger-ui.html
-
+- Usuário padrão: admin senha: admin
