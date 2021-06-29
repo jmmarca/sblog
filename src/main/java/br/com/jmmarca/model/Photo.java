@@ -21,9 +21,6 @@ public class Photo extends AbstractModel {
     @ManyToOne
     private Gallery gallery;
 
-    @ManyToOne
-    private Post post;
-
     public User getUser() {
         return user;
     }
@@ -38,14 +35,6 @@ public class Photo extends AbstractModel {
 
     public void setGallery(Gallery gallery) {
         this.gallery = gallery;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
     }
 
     public String getFileName() {

@@ -44,10 +44,6 @@ public class Post extends AbstractModel {
     @JsonIgnoreProperties("comments")
     private Collection<PostComment> comments = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties("photos")
-    private Collection<Photo> photos = new ArrayList<>();
-
     public User getUser() {
         return user;
     }
@@ -94,14 +90,6 @@ public class Post extends AbstractModel {
 
     public void setComments(Collection<PostComment> comments) {
         this.comments = comments;
-    }
-
-    public Collection<Photo> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(Collection<Photo> photos) {
-        this.photos = photos;
     }
 
 }
